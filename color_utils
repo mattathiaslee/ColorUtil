@@ -1,0 +1,13 @@
+import maya.cmds as cmds
+
+selection = cmds.ls(sl=True, l=True)
+
+def set_color_index(objs, color_index):
+	for obj in objs:
+		obj_shapes = cmds.listRelatives(obj, shapes=True, f=True)
+		
+		for shape in obj_shapes:
+			print(shape)
+			cmds.setAttr("{0}.overrideEnabled".format(shape), True)
+			cmds.setAttr("{0}.overrideRGBColors".format(shape), False)
+			cmds.setAttr("{0}.overrideColor".format(shape), color_index)
