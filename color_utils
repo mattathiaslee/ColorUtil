@@ -1,19 +1,15 @@
 import maya.cmds as cmds
 
-selection = cmds.ls(sl=True, l=True)
+objs = cmds.ls(sl=True, l=True)
 
 def set_color_index(objs, color_index):
 	if color_index > 31:
-		raise ValueError("Color is out of index, please put between 0-31")
-	
-	
-	for obj in objs:
-		obj_shapes = cmds.listRelatives(obj, shapes=True, f=True)
+		raise ValueError("Color index is out of index, please put a value between 0 and 31")
 		
-		for shape in obj_shapes:
-			print(shape)
-			cmds.setAttr("{0}.overrideEnabled".format(shape), True)
-			cmds.setAttr("{0}.overrideRGBColors".format(shape), False)
-			cmds.setAttr("{0}.overrideColor".format(shape), color_index)
-			
-set_color_index(selection, 0)
+	for obj in objs:
+		shape = cmds.listRelatives(obj, shapes=True, f=True)[0]
+		cmds.setAttr("{0}.overrideEnabled".format(shape), True)
+		cmds.setAttr("{0}.overrideRGBColors".format(shape), False)
+		cmds.setAttr("{0}.overrideColor".format(shape), color_index)
+
+#set_color_index(objs, 6)
