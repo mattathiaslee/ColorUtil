@@ -1,6 +1,6 @@
 import maya.cmds as cmds
 
-objs = cmds.ls(sl=True, l=True)
+selection = cmds.ls(sl=True, l=True)
 
 def set_color_index(objs, color_index):
 	if color_index > 31:
@@ -12,4 +12,10 @@ def set_color_index(objs, color_index):
 		cmds.setAttr("{0}.overrideRGBColors".format(shape), False)
 		cmds.setAttr("{0}.overrideColor".format(shape), color_index)
 
-#set_color_index(objs, 6)
+#set_color_index(selection, 6)
+
+
+#Get Maya's RGB Values
+for index in range(1, 32):
+    color_component = cmds.colorIndex(index, q=True)
+    print "Index {} is {}".format(index,color_component)
